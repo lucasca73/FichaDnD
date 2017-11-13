@@ -21,19 +21,24 @@ public class App {
 
 	private JFrame frame;
 	private JTable table;
-	private JTextField txtCa;
 	private JTextField txtBonusBaseAtaque;
 	private JTextField txtdd;
 	private JTextField txtRobertLangdon;
 	private JTextField txtCaoticoNeutro;
-	private JTextField textField_2;
 	private JTextField txtd;
 	private JTextField txtd_1;
 	
-	
 	private String[][] atributes = {{"Str", "18", "+4"}, {"Dex", "12", "+1"}, {"Con", "15", "+2"}};
-	private String[] collums = {"Atributo", "valor", "modificador"};
+	private String[] collums_1 = {"Atributo", "valor", "modificador"};
 	private TableModel modelAtributes;
+	
+	private String[][] resistences = {{"Fortitude", "18"}, {"Reflexos", "12"}, {"Vontade", "15"}};
+	private String[] collums_2 = {"Resistencia", "valor"};
+	private TableModel modelResistences;
+	
+	
+	private JTable table_1; // Generic Equipable table
+	private JTable table_Resistence;
 
 	/**
 	 * Launch the application.
@@ -63,7 +68,8 @@ public class App {
 	 */
 	private void initialize() {
 		
-		modelAtributes = new DefaultTableModel(atributes, collums);
+		modelAtributes = new DefaultTableModel(atributes, collums_1);
+		modelResistences = new DefaultTableModel(resistences, collums_2);
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
@@ -91,19 +97,13 @@ public class App {
 		lblNome.setBounds(26, 6, 46, 16);
 		frame.getContentPane().add(lblNome);
 		
-		txtCa = new JTextField();
-		txtCa.setText("CA");
-		txtCa.setBounds(359, 152, 67, 26);
-		frame.getContentPane().add(txtCa);
-		txtCa.setColumns(10);
-		
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setValue(75);
 		progressBar.setBounds(359, 124, 146, 26);
 		frame.getContentPane().add(progressBar);
 		
-		JLabel lblPvpvAtual = new JLabel("PV/PV Atual");
-		lblPvpvAtual.setBounds(359, 113, 146, 16);
+		JLabel lblPvpvAtual = new JLabel("14/20");
+		lblPvpvAtual.setBounds(383, 112, 107, 16);
 		frame.getContentPane().add(lblPvpvAtual);
 		
 		txtBonusBaseAtaque = new JTextField();
@@ -127,6 +127,11 @@ public class App {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnTalentos = new JButton("Talentos");
+		btnTalentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnTalentos.setBounds(429, 228, 117, 29);
 		frame.getContentPane().add(btnTalentos);
 		
@@ -154,12 +159,6 @@ public class App {
 		lblNivel.setBounds(26, 33, 46, 16);
 		frame.getContentPane().add(lblNivel);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("10");
-		textField_2.setColumns(10);
-		textField_2.setBounds(68, 28, 61, 26);
-		frame.getContentPane().add(textField_2);
-		
 		JLabel lblBonusBaseAtaque = new JLabel("Bonus Base Ataque");
 		lblBonusBaseAtaque.setBounds(26, 334, 130, 16);
 		frame.getContentPane().add(lblBonusBaseAtaque);
@@ -179,6 +178,37 @@ public class App {
 		txtd_1.setColumns(10);
 		txtd_1.setBounds(26, 454, 193, 26);
 		frame.getContentPane().add(txtd_1);
+		
+		JProgressBar progressBar_1 = new JProgressBar();
+		progressBar_1.setValue(75);
+		progressBar_1.setBounds(26, 47, 146, 26);
+		frame.getContentPane().add(progressBar_1);
+		
+		JLabel labelNivelDescription = new JLabel("10");
+		labelNivelDescription.setBounds(78, 33, 46, 16);
+		frame.getContentPane().add(labelNivelDescription);
+		
+		JLabel lblCa = new JLabel("CA");
+		lblCa.setBounds(359, 157, 27, 16);
+		frame.getContentPane().add(lblCa);
+		
+		table_1 = new JTable();
+		table_1.setBounds(329, 272, 432, 206);
+		frame.getContentPane().add(table_1);
+		
+		table_Resistence = new JTable(modelResistences);
+		table_Resistence.setBounds(641, 113, 120, 60);
+		frame.getContentPane().add(table_Resistence);
+		table_Resistence.setEnabled(false);
+		
+		JLabel lblPv = new JLabel("PV");
+		lblPv.setBounds(359, 112, 27, 16);
+		frame.getContentPane().add(lblPv);
+		
+		JLabel labelCA_number = new JLabel("17");
+		labelCA_number.setBounds(383, 157, 27, 16);
+		frame.getContentPane().add(labelCA_number);
+		
 	}
 	
 }
