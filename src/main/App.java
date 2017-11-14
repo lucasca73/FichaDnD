@@ -2,6 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 import player.observer.*;
+import tables.TableModelPericias;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -9,24 +10,23 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
+import player.Pericia;
 import player.Player;
 import labels.LBObserver;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
-import javax.swing.JProgressBar;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class App implements Observer {
+public class App implements CellListener {
 	
-	private Player pl = new Player();
+	private Player pl = Player.shared;
 
 	private JFrame frame;
 	private JTextField txtBonusBaseAtaque;
@@ -34,7 +34,7 @@ public class App implements Observer {
 	private JTextField txtRobertLangdon;
 	private JTextField txtCaoticoNeutro;
 	private JTextField txtd;
-	private JTextField txtd_1;
+	private JTextField txtd_1; 
 	
 	
 	private JTable table_1; // Equipable table
@@ -176,9 +176,21 @@ public class App implements Observer {
 		lblCa.setBounds(340, 171, 27, 16);
 		frame.getContentPane().add(lblCa);
 		
-		table_1 = new JTable();
-		table_1.setBounds(329, 272, 432, 206);
+		
+		ArrayList<Pericia> ps = new ArrayList<Pericia>();
+		Pericia p = new Pericia("Cavalgar", "des");
+		ps.add(p);
+		
+		TableModelPericias model = new TableModelPericias(ps);
+		pl.addObserver(model);
+		
+		// Table 1 Tabela dos equipamentos e tudo
+		table_1 = new JTable(model);
+		table_1.setBounds(329, 272, 432, 267);
 		frame.getContentPane().add(table_1);
+		
+		p.setGraduacao(5);
+		
 		
 		
 		JLabel lblPv = new JLabel("PV");
@@ -245,6 +257,8 @@ public class App implements Observer {
 		txtvalue_car.setBounds(57, 205, 50, 26);
 		frame.getContentPane().add(txtvalue_car);
 		
+		
+		// Atribute Observer Labels 
 		LBObserver lbmod_for = new LBObserver("0");
 		lbmod_for.setBounds(119, 113, 37, 16);
 		frame.getContentPane().add(lbmod_for);
@@ -280,6 +294,8 @@ public class App implements Observer {
 		frame.getContentPane().add(lbmod_des);
 		lbmod_des.obs_key = "des";
 		pl.addObserver(lbmod_des);
+		//End atributes obs
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 240));
@@ -296,9 +312,12 @@ public class App implements Observer {
 		lbFortitude.setBounds(6, 6, 61, 16);
 		panel_1.add(lbFortitude);
 		
-		JLabel lbFortitude_value = new JLabel("0");
+		// Obs
+		LBObserver lbFortitude_value = new LBObserver("0");
 		lbFortitude_value.setBounds(75, 6, 19, 16);
 		panel_1.add(lbFortitude_value);
+		lbFortitude_value.obs_key = "fortitude";
+		pl.addObserver(lbFortitude_value);
 		
 		tf_value_fort = new JTextField();
 		tf_value_fort.setBounds(99, 1, 42, 26);
@@ -309,9 +328,13 @@ public class App implements Observer {
 		lblReflexos.setBounds(6, 31, 61, 16);
 		panel_1.add(lblReflexos);
 		
-		JLabel lbReflexos_value = new JLabel("0");
+		
+		// Obs
+		LBObserver lbReflexos_value = new LBObserver("0");
 		lbReflexos_value.setBounds(75, 31, 19, 16);
 		panel_1.add(lbReflexos_value);
+		lbReflexos_value.obs_key = "reflexos";
+		pl.addObserver(lbReflexos_value);
 		
 		tf_value_reflex = new JTextField();
 		tf_value_reflex.setColumns(10);
@@ -322,9 +345,12 @@ public class App implements Observer {
 		lblVontade.setBounds(6, 58, 61, 16);
 		panel_1.add(lblVontade);
 		
-		JLabel lbVontade_value = new JLabel("0");
+		// Obs
+		LBObserver lbVontade_value = new LBObserver("0");
 		lbVontade_value.setBounds(75, 58, 19, 16);
 		panel_1.add(lbVontade_value);
+		lbVontade_value.obs_key = "vontade";
+		pl.addObserver(lbVontade_value);
 		
 		tf_value_vont = new JTextField();
 		tf_value_vont.setColumns(10);
@@ -349,13 +375,13 @@ public class App implements Observer {
 		label_6.setBounds(330, 33, 46, 16);
 		frame.getContentPane().add(label_6);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Bardo", "Barbaro", "Guerreiro", "Ranger", "Paladino", "Feiticeiro", "Mago", "Druida", "Clérigo"}));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Bardo", "Barbaro", "Guerreiro", "Ranger", "Paladino", "Feiticeiro", "Mago", "Druida", "Clérigo"}));
 		comboBox.setBounds(380, 29, 146, 27);
 		frame.getContentPane().add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Anão", "Humano", "Meio-Orc", "Elfo", "Meio-Elfo", "Halfling"}));
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Anão", "Humano", "Meio-Orc", "Elfo", "Meio-Elfo", "Halfling"}));
 		comboBox_1.setBounds(187, 29, 114, 27);
 		frame.getContentPane().add(comboBox_1);
 		
@@ -398,10 +424,11 @@ public class App implements Observer {
 		frame.getContentPane().add(lblAtual);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(192, 192, 192));
+		panel_2.setBackground(new Color(220, 220, 220));
 		panel_2.setBounds(330, 110, 146, 100);
 		frame.getContentPane().add(panel_2);
 		
+		pl.warnObservers();
 	}
 	
 	private void listenAtributes(){
@@ -411,29 +438,39 @@ public class App implements Observer {
 		this.bindTxtField(txtvalue_int, "int");
 		this.bindTxtField(txtvalue_sab, "sab");
 		this.bindTxtField(txtvalue_car, "car");
+		
+		this.bindTxtField(tf_value_fort, "fortitude");
+		this.bindTxtField(tf_value_reflex, "reflexos");
+		this.bindTxtField(tf_value_vont, "vontade");
 	}
 	
 	//Util 
 	private void bindTxtField(final JTextField tf, final String key){
 		tf.getDocument().addDocumentListener(new DocumentListener() {
-			  public void changedUpdate(DocumentEvent e) { warn(); }
-			  public void removeUpdate(DocumentEvent e)  { warn(); }
-			  public void insertUpdate(DocumentEvent e)  { warn(); }
+			public void changedUpdate(DocumentEvent e) { warn(); }
+			public void removeUpdate(DocumentEvent e)  { warn(); }
+			public void insertUpdate(DocumentEvent e)  { warn(); }
 
-			  public void warn() {
-				  
-				  if (tf.getText().isEmpty()) return;
-				  
-				  int val = Integer.parseInt(tf.getText());
-				  
-				  if ( val > 0){
-					  pl.updateData(key, val);
-				  }
-			  }
-			});
+			public void warn() {
+
+				if (tf.getText().isEmpty()) return;
+
+				int val = Integer.parseInt(tf.getText());
+
+				if ( val > 0){
+					pl.updateData(key, val);
+				}
+			}
+		});
 	}
-	
-	public void update(Player player){
+
+	@Override
+	public void cellTextChanged(int row, int col, String text) {
+		System.out.println("row:" + String.valueOf(row) +
+				" column:" + String.valueOf(col) +
+				" text:" + text
+		);
+		
 		
 	}
 }

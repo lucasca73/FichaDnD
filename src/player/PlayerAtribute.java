@@ -5,7 +5,7 @@ package player;
 public class PlayerAtribute {
 
 	public String nome;
-	public int valor = 0;
+	private int valor = 0;
 	public int temporary = 0;
 	
 	
@@ -16,6 +16,15 @@ public class PlayerAtribute {
 		atr.valor = 10;
 		
 		return atr;
+	}
+	
+	public int getValue(){
+		return valor;
+	}
+	
+	public void setValue(int value){
+		this.valor = value;
+		Player.shared.warnObservers();
 	}
 	
 	public int mod(){

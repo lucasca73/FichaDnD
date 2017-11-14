@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 
 import player.Player;
 import player.PlayerAtribute;
+import player.Resistencia;
 import player.observer.Observer;
 
 public class LBObserver extends JLabel implements Observer{
@@ -17,9 +18,26 @@ public class LBObserver extends JLabel implements Observer{
 	
 	@Override
 	public void update(Player player) {
-		PlayerAtribute atr = player.getAtribute(this.obs_key);
-		if (atr != null){
-			this.setText(String.valueOf( atr.mod() ));
+		
+		Object d = player.getData(obs_key);
+		
+		if (d != null){
+		
+			if (d instanceof Resistencia){
+				
+				Resistencia res = (Resistencia) d;
+				this.setText(String.valueOf( res.getValue() ));
+			}
+			
+			if (d instanceof PlayerAtribute){
+				PlayerAtribute atr = (PlayerAtribute) d;
+
+				if (atr.mod() >= 0){
+					this.setText(String.valueOf("+" + atr.mod() ));
+				}else{
+					this.setText(String.valueOf( atr.mod() ));
+				}
+			}
 		}
 	}
 
