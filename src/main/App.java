@@ -456,7 +456,7 @@ public class App {
 
 				int val = Integer.parseInt(tf.getText());
 
-				if ( val > 0){
+				if ( val >= 0){
 					pl.updateData(key, val);
 				}
 			}
