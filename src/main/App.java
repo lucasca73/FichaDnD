@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.EventQueue;
-import player.observer.*;
 import tables.TableModelPericias;
 
 import javax.swing.JFrame;
@@ -24,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class App implements CellListener {
+public class App {
 	
 	private Player pl = Player.shared;
 
@@ -464,13 +463,4 @@ public class App implements CellListener {
 		});
 	}
 
-	@Override
-	public void cellTextChanged(int row, int col, String text) {
-		System.out.println("row:" + String.valueOf(row) +
-				" column:" + String.valueOf(col) +
-				" text:" + text
-		);
-		
-		
-	}
 }

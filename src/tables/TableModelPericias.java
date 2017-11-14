@@ -64,7 +64,7 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 
 		switch (columnIndex) {
 		case 0:
-			returnValue = p.nome;
+			returnValue = p.nome + " (" + p.atribute + ")";
 			break;
 		case 1:
 			returnValue = p.getValue();
