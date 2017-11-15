@@ -5,7 +5,6 @@ import tables.TableModelPericias;
 
 import javax.swing.JFrame;
 import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JLabel;
@@ -13,6 +12,7 @@ import javax.swing.JLabel;
 import player.Pericia;
 import player.Player;
 import labels.LBObserver;
+import labels.TFObserver;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,30 +28,30 @@ public class App {
 	private Player pl = Player.shared;
 
 	private JFrame frame;
-	private JTextField txtBonusBaseAtaque;
-	private JTextField txtdd;
-	private JTextField txtRobertLangdon;
-	private JTextField txtCaoticoNeutro;
-	private JTextField txtd;
-	private JTextField txtd_1; 
+	private TFObserver txtBonusBaseAtaque;
+	private TFObserver txtdd;
+	private TFObserver txtRobertLangdon;
+	private TFObserver txtCaoticoNeutro;
+	private TFObserver txtd;
+	private TFObserver txtd_1;
 	
 	
 	private JTable table_1; // Equipable table
-	private JTextField txtvalue_for;
-	private JTextField txtvalue_des;
-	private JTextField txtvalue_con;
-	private JTextField txtvalue_int;
-	private JTextField txtvalue_sab;
-	private JTextField txtvalue_car;
-	private JTextField tf_value_fort;
-	private JTextField tf_value_reflex;
-	private JTextField tf_value_vont;
-	private JTextField tfNivelValue;
-	private JTextField textField_5;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private TFObserver txtvalue_for;
+	private TFObserver txtvalue_des;
+	private TFObserver txtvalue_con;
+	private TFObserver txtvalue_int;
+	private TFObserver txtvalue_sab;
+	private TFObserver txtvalue_car;
+	private TFObserver tf_value_fort;
+	private TFObserver tf_value_reflex;
+	private TFObserver tf_value_vont;
+	private TFObserver tfNivelValue;
+	private TFObserver textField_5;
+	private TFObserver textField;
+	private TFObserver textField_1;
+	private TFObserver textField_2;
+	private TFObserver textField_3;
 
 	/**
 	 * Launch the application.
@@ -98,13 +98,13 @@ public class App {
 		lblNome.setBounds(26, 6, 46, 16);
 		frame.getContentPane().add(lblNome);
 		
-		txtBonusBaseAtaque = new JTextField();
+		txtBonusBaseAtaque = new TFObserver();
 		txtBonusBaseAtaque.setText("3");
 		txtBonusBaseAtaque.setBounds(147, 272, 67, 26);
 		frame.getContentPane().add(txtBonusBaseAtaque);
 		txtBonusBaseAtaque.setColumns(10);
 		
-		txtdd = new JTextField();
+		txtdd = new TFObserver();
 		txtdd.setText("2d6");
 		txtdd.setBounds(26, 385, 193, 30);
 		frame.getContentPane().add(txtdd);
@@ -131,7 +131,7 @@ public class App {
 		btnPericias.setBounds(537, 228, 117, 29);
 		frame.getContentPane().add(btnPericias);
 		
-		txtRobertLangdon = new JTextField();
+		txtRobertLangdon = new TFObserver();
 		txtRobertLangdon.setText("Robert Langdon");
 		txtRobertLangdon.setBounds(68, 1, 233, 26);
 		frame.getContentPane().add(txtRobertLangdon);
@@ -141,7 +141,7 @@ public class App {
 		lblTendencia.setBounds(330, 6, 82, 16);
 		frame.getContentPane().add(lblTendencia);
 		
-		txtCaoticoNeutro = new JTextField();
+		txtCaoticoNeutro = new TFObserver();
 		txtCaoticoNeutro.setText("Caotico Neutro");
 		txtCaoticoNeutro.setColumns(10);
 		txtCaoticoNeutro.setBounds(404, 1, 130, 26);
@@ -159,13 +159,13 @@ public class App {
 		btnEquipamentos.setBounds(319, 228, 117, 29);
 		frame.getContentPane().add(btnEquipamentos);
 		
-		txtd = new JTextField();
+		txtd = new TFObserver();
 		txtd.setText("1d6 + 15");
 		txtd.setColumns(10);
 		txtd.setBounds(26, 415, 193, 30);
 		frame.getContentPane().add(txtd);
 		
-		txtd_1 = new JTextField();
+		txtd_1 = new TFObserver();
 		txtd_1.setText("3d8 + 6");
 		txtd_1.setColumns(10);
 		txtd_1.setBounds(26, 445, 193, 30);
@@ -220,37 +220,37 @@ public class App {
 		lblSab.setBounds(26, 193, 37, 16);
 		frame.getContentPane().add(lblSab);
 		
-		txtvalue_for = new JTextField();
+		txtvalue_for = new TFObserver();
 		txtvalue_for.setText("10");
 		txtvalue_for.setBounds(57, 107, 50, 26);
 		frame.getContentPane().add(txtvalue_for);
 		txtvalue_for.setColumns(10);
 		
-		txtvalue_des = new JTextField();
+		txtvalue_des = new TFObserver();
 		txtvalue_des.setText("10");
 		txtvalue_des.setColumns(10);
 		txtvalue_des.setBounds(57, 127, 50, 26);
 		frame.getContentPane().add(txtvalue_des);
 		
-		txtvalue_con = new JTextField();
+		txtvalue_con = new TFObserver();
 		txtvalue_con.setText("10");
 		txtvalue_con.setColumns(10);
 		txtvalue_con.setBounds(57, 146, 50, 26);
 		frame.getContentPane().add(txtvalue_con);
 		
-		txtvalue_int = new JTextField();
+		txtvalue_int = new TFObserver();
 		txtvalue_int.setText("10");
 		txtvalue_int.setColumns(10);
 		txtvalue_int.setBounds(57, 165, 50, 26);
 		frame.getContentPane().add(txtvalue_int);
 		
-		txtvalue_sab = new JTextField();
+		txtvalue_sab = new TFObserver();
 		txtvalue_sab.setText("10");
 		txtvalue_sab.setColumns(10);
 		txtvalue_sab.setBounds(57, 185, 50, 26);
 		frame.getContentPane().add(txtvalue_sab);
 		
-		txtvalue_car = new JTextField();
+		txtvalue_car = new TFObserver();
 		txtvalue_car.setText("10");
 		txtvalue_car.setColumns(10);
 		txtvalue_car.setBounds(57, 205, 50, 26);
@@ -318,7 +318,7 @@ public class App {
 		lbFortitude_value.obs_key = "fortitude";
 		pl.addObserver(lbFortitude_value);
 		
-		tf_value_fort = new JTextField();
+		tf_value_fort = new TFObserver();
 		tf_value_fort.setBounds(99, 1, 42, 26);
 		panel_1.add(tf_value_fort);
 		tf_value_fort.setColumns(10);
@@ -335,7 +335,7 @@ public class App {
 		lbReflexos_value.obs_key = "reflexos";
 		pl.addObserver(lbReflexos_value);
 		
-		tf_value_reflex = new JTextField();
+		tf_value_reflex = new TFObserver();
 		tf_value_reflex.setColumns(10);
 		tf_value_reflex.setBounds(99, 26, 42, 26);
 		panel_1.add(tf_value_reflex);
@@ -351,7 +351,7 @@ public class App {
 		lbVontade_value.obs_key = "vontade";
 		pl.addObserver(lbVontade_value);
 		
-		tf_value_vont = new JTextField();
+		tf_value_vont = new TFObserver();
 		tf_value_vont.setColumns(10);
 		tf_value_vont.setBounds(99, 53, 42, 26);
 		panel_1.add(tf_value_vont);
@@ -360,13 +360,13 @@ public class App {
 		lblResistencia.setBounds(537, 90, 107, 16);
 		frame.getContentPane().add(lblResistencia);
 		
-		tfNivelValue = new JTextField();
+		tfNivelValue = new TFObserver();
 		tfNivelValue.setText("10");
 		tfNivelValue.setBounds(68, 28, 46, 26);
 		frame.getContentPane().add(tfNivelValue);
 		tfNivelValue.setColumns(10);
 		
-		JLabel lblClasse = new JLabel("Classe");
+		JLabel lblClasse = new JLabel("Raça");
 		lblClasse.setBounds(141, 33, 46, 16);
 		frame.getContentPane().add(lblClasse);
 		
@@ -388,28 +388,28 @@ public class App {
 		lblExp.setBounds(583, 6, 61, 16);
 		frame.getContentPane().add(lblExp);
 		
-		textField_5 = new JTextField();
+		textField_5 = new TFObserver();
 		textField_5.setBounds(608, 1, 130, 26);
 		frame.getContentPane().add(textField_5);
 		textField_5.setColumns(10);
 		
-		textField = new JTextField();
+		textField = new TFObserver();
 		textField.setText("2d6 + 1d8");
 		textField.setColumns(10);
 		textField.setBounds(26, 355, 193, 30);
 		frame.getContentPane().add(textField);
 		
-		textField_1 = new JTextField();
+		textField_1 = new TFObserver();
 		textField_1.setBounds(360, 166, 46, 26);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		textField_2 = new JTextField();
+		textField_2 = new TFObserver();
 		textField_2.setColumns(10);
 		textField_2.setBounds(360, 127, 46, 26);
 		frame.getContentPane().add(textField_2);
 		
-		textField_3 = new JTextField();
+		textField_3 = new TFObserver();
 		textField_3.setColumns(10);
 		textField_3.setBounds(400, 127, 46, 26);
 		frame.getContentPane().add(textField_3);
@@ -444,7 +444,7 @@ public class App {
 	}
 	
 	//Util 
-	private void bindTxtField(final JTextField tf, final String key){
+	private void bindTxtField(final TFObserver tf, final String key){
 		tf.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) { warn(); }
 			public void removeUpdate(DocumentEvent e)  { warn(); }
@@ -461,6 +461,9 @@ public class App {
 				}
 			}
 		});
+		
+		tf.obs_key = key;
+		pl.addObserver(tf, true);
 	}
 
 }

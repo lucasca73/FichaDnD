@@ -1,5 +1,6 @@
 package player;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +25,14 @@ public class Player {
 		data.put("fortitude", new Resistencia("fortitude", "con"));
 		data.put("reflexos", new Resistencia("reflexos", "des"));
 		data.put("vontade", new Resistencia("vontade", "sab"));
+		
+		
+		// Load stored information
+		try {
+			this.readState();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -56,10 +65,42 @@ public class Player {
 		}
 	}
 	
+	public void addObserver(Observer obs, boolean justRead ){
+		if(justRead){
+			obs.update(this);
+		}
+	}
+	
 	public void warnObservers(){
+		
+		try {
+			this.saveState();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		for(int i = 0; i < observers.size(); i++){
 			observers.get(i).update(this);
 		}
 	}
 	
+	
+	private void saveState() throws Exception{
+		FileOutputStream fout = new FileOutputStream("player_data.dat");
+		ObjectOutputStream oos = new ObjectOutputStream(fout);
+		oos.writeObject(data);
+		
+		System.out.println(data);
+	}
+	
+	private void readState() throws Exception {
+		FileInputStream streamIn = new FileInputStream("player_data.dat");
+		ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
+		HashMap<String, Object> readData = (HashMap<String, Object>) objectinputstream.readObject();
+		
+		this.data = readData;
+		
+		//System.out.println(readData);
+		System.out.println(data);
+	}
 }

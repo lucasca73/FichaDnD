@@ -1,10 +1,15 @@
 package player;
 
-public class Resistencia {
+import java.io.IOException;
 
+public class Resistencia implements java.io.Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	public String name;
 	public String atribute;
 	private int classPoints = 0;
+	
 	
 	public Resistencia(String name, String atr){
 		this.name = name;
@@ -20,6 +25,10 @@ public class Resistencia {
 		return this.getMod() + classPoints;
 	}
 	
+	public int getClassValue(){
+		return this.classPoints;
+	}
+	
 	public int getMod(){
 		
 		Object d = Player.shared.getData(atribute);
@@ -30,5 +39,23 @@ public class Resistencia {
 		
 		return 0;
 	}
+	
+	private void writeObject(java.io.ObjectOutputStream stream)
+            throws IOException {
+        stream.writeObject(this.name);
+        stream.writeObject(this.atribute);
+        stream.writeInt(this.classPoints);
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        this.name = (String) stream.readObject();
+        this.atribute = (String) stream.readObject();
+        this.classPoints = stream.readInt();
+    }
+
+    public String toString() {
+        return name + "\t" + atribute + "\t" + classPoints + "\n";
+    }
 	
 }
