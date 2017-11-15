@@ -45,8 +45,6 @@ public class PlayerAtribute implements java.io.Serializable {
         stream.writeObject(this.nome);
         stream.writeInt(this.valor);
         stream.writeInt(this.temporary);
-        
-        System.out.println("Writing object...");
     }
 
     private void readObject(java.io.ObjectInputStream stream)
@@ -54,8 +52,6 @@ public class PlayerAtribute implements java.io.Serializable {
         this.nome = (String) stream.readObject();
         this.valor = stream.readInt();
         this.temporary = stream.readInt();
-        
-        System.out.println("Reading object...");
     }
 
     public String toString() {

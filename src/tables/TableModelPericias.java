@@ -11,16 +11,13 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 	private static final long serialVersionUID = 1L;
 	
 	private String[] col = {"Nome", "Valor", "Mod", "Grad"};
-	private ArrayList<Pericia> pericias;
 	
-	public TableModelPericias(ArrayList<Pericia> pericias){
-		this.pericias = pericias;
-	}
+	public TableModelPericias(){}
 	
 	@Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
 		
-		if(columnIndex < 3 || rowIndex >= pericias.size()){
+		if(columnIndex < 3 || rowIndex >= Player.shared.pericias.size()){
 			return false;
 		}
 		
@@ -29,7 +26,7 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 
 	@Override
 	public int getRowCount() {
-		return pericias.size() + 1;
+		return Player.shared.pericias.size() + 1;
 	}
 
 	@Override
@@ -41,7 +38,7 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object returnValue = null;
 		
-		if (rowIndex >= pericias.size()){
+		if (rowIndex >= Player.shared.pericias.size()){
 			switch (columnIndex) {
 			case 2:
 				return "TOTAL";
@@ -49,8 +46,8 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 			case 3:
 				int sum = 0;
 				
-				for (int i = 0; i < pericias.size(); i++){
-					sum += pericias.get(i).getGraduacao();
+				for (int i = 0; i < Player.shared.pericias.size(); i++){
+					sum += Player.shared.pericias.get(i).getGraduacao();
 				}
 				
 				return sum;
@@ -60,7 +57,8 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 			}
 		}
 		
-		Pericia p = pericias.get(rowIndex);
+		Pericia p = Player.shared.pericias.get(rowIndex);
+		
 
 		switch (columnIndex) {
 		case 0:
@@ -87,7 +85,7 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 	
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Pericia p = pericias.get(rowIndex);
+		Pericia p = Player.shared.pericias.get(rowIndex);
 		
 		if (columnIndex == 3 && aValue instanceof String){
 			String g = (String) aValue;
@@ -97,12 +95,12 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 			}
 		}
 		
-		
 		this.fireTableDataChanged();
     }
 
 	@Override
 	public void update(Player player) {
+		//System.out.println("Updating table!");
 		this.fireTableDataChanged();
 	}
 	

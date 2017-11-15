@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -176,20 +177,18 @@ public class App {
 		frame.getContentPane().add(lblCa);
 		
 		
-		ArrayList<Pericia> ps = new ArrayList<Pericia>();
-		Pericia p = new Pericia("Cavalgar", "des");
-		ps.add(p);
-		
-		TableModelPericias model = new TableModelPericias(ps);
+		TableModelPericias model = new TableModelPericias();
 		pl.addObserver(model);
 		
 		// Table 1 Tabela dos equipamentos e tudo
 		table_1 = new JTable(model);
 		table_1.setBounds(329, 272, 432, 267);
 		frame.getContentPane().add(table_1);
-		
-		p.setGraduacao(5);
-		
+		JScrollPane js=new JScrollPane(table_1);
+		js.setSize(table_1.getSize());
+		js.setLocation(table_1.getLocation());
+		js.setVisible(true);
+		this.frame.add(js);
 		
 		
 		JLabel lblPv = new JLabel("PV");

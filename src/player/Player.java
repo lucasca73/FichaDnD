@@ -3,6 +3,7 @@ package player;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import player.observer.*;
 
@@ -11,7 +12,7 @@ public class Player {
 	public static Player shared = new Player();
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	private HashMap<String, Object> data = new HashMap<String, Object>();
-	public ArrayList<Pericia> pericias = PlayerClass.forClassName("");
+	public ArrayList<Pericia> pericias;
 	
 	
 	public Player(){
@@ -26,11 +27,17 @@ public class Player {
 		data.put("reflexos", new Resistencia("reflexos", "des"));
 		data.put("vontade", new Resistencia("vontade", "sab"));
 		
+		pericias = Pericia.readDefaultFile();
+		
+		for(Pericia p : pericias){
+			data.put(p.nome, 0);
+			//System.out.println(p.nome + " valor: " + data.get(p.nome) + data.get(p.nome).getClass() );
+		}
 		
 		// Load stored information
 		try {
 			this.readState();
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 	}
@@ -45,11 +52,18 @@ public class Player {
 			if( obj instanceof PlayerAtribute ){ //Updating atribute
 				PlayerAtribute atr = (PlayerAtribute) obj;
 				atr.setValue((int) value);
-				
 			
 			} else if (obj instanceof Resistencia ){ //Updating resistence
 				Resistencia res = (Resistencia) obj;
 				res.setClassValue((int) value); 
+				
+			} else if (obj instanceof Integer ){ //Updating others
+				System.out.println("Integer: " + obj.getClass());
+				data.put(name, value);
+				
+			} else {
+				System.out.println(obj.getClass());
+				
 			}
 		}
 	
@@ -90,7 +104,7 @@ public class Player {
 		ObjectOutputStream oos = new ObjectOutputStream(fout);
 		oos.writeObject(data);
 		
-		System.out.println(data);
+		//System.out.println(data);
 	}
 	
 	private void readState() throws Exception {
@@ -101,6 +115,6 @@ public class Player {
 		this.data = readData;
 		
 		//System.out.println(readData);
-		System.out.println(data);
+		//System.out.println(data);
 	}
 }
