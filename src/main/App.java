@@ -1,7 +1,8 @@
 package main;
 
 import java.awt.EventQueue;
-import tables.TableModelPericias;
+
+import tables.*;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -9,19 +10,15 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JLabel;
 
-import player.Pericia;
 import player.Player;
-import labels.LBObserver;
-import labels.TFObserver;
+import labels.*;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class App {
@@ -30,11 +27,11 @@ public class App {
 
 	private JFrame frame;
 	private TFObserver txtBonusBaseAtaque;
-	private TFObserver txtdd;
+	private TFObserver txtAtaque2;
 	private TFObserver txtRobertLangdon;
 	private TFObserver txtCaoticoNeutro;
-	private TFObserver txtd;
-	private TFObserver txtd_1;
+	private TFObserver txtAtaque3;
+	private TFObserver txtAtaque4;
 	
 	
 	private JTable table_1; // Equipable table
@@ -48,11 +45,16 @@ public class App {
 	private TFObserver tf_value_reflex;
 	private TFObserver tf_value_vont;
 	private TFObserver tfNivelValue;
-	private TFObserver textField_5;
-	private TFObserver textField;
-	private TFObserver textField_1;
-	private TFObserver textField_2;
-	private TFObserver textField_3;
+	private TFObserver txtExp;
+	private TFObserver txtAtaque1;
+	private TFObserver txCa;
+	private TFObserver txPvAtual;
+	private TFObserver txPvTotal;
+	
+	TableModelPericias pericias = new TableModelPericias();
+	TableModelListaSimples equips = new TableModelListaSimples("equipamentos");
+	TableModelListaSimples talentos = new TableModelListaSimples("talentos");
+	TableModelListaSimples magias = new TableModelListaSimples("magias");
 
 	/**
 	 * Launch the application.
@@ -105,24 +107,30 @@ public class App {
 		frame.getContentPane().add(txtBonusBaseAtaque);
 		txtBonusBaseAtaque.setColumns(10);
 		
-		txtdd = new TFObserver();
-		txtdd.setText("2d6");
-		txtdd.setBounds(26, 385, 193, 30);
-		frame.getContentPane().add(txtdd);
-		txtdd.setColumns(10);
+		txtAtaque2 = new TFObserver();
+		txtAtaque2.setText("2d6");
+		txtAtaque2.setBounds(26, 385, 193, 30);
+		frame.getContentPane().add(txtAtaque2);
+		txtAtaque2.setColumns(10);
 		
 		JLabel lblAtaques = new JLabel("Ataques");
 		lblAtaques.setBounds(26, 337, 61, 16);
 		frame.getContentPane().add(lblAtaques);
 		
+		
 		JButton btnNewButton = new JButton("Magias");
 		btnNewButton.setBounds(644, 228, 117, 29);
 		frame.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table_1.setModel(magias);
+			}
+		});
 		
 		JButton btnTalentos = new JButton("Talentos");
 		btnTalentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				table_1.setModel(talentos);
 			}
 		});
 		btnTalentos.setBounds(429, 228, 117, 29);
@@ -131,6 +139,11 @@ public class App {
 		JButton btnPericias = new JButton("Pericias");
 		btnPericias.setBounds(537, 228, 117, 29);
 		frame.getContentPane().add(btnPericias);
+		btnPericias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table_1.setModel(pericias);
+			}
+		});
 		
 		txtRobertLangdon = new TFObserver();
 		txtRobertLangdon.setText("Robert Langdon");
@@ -152,6 +165,7 @@ public class App {
 		lblNivel.setBounds(26, 33, 46, 16);
 		frame.getContentPane().add(lblNivel);
 		
+		
 		JLabel lblBonusBaseAtaque = new JLabel("Bonus Base Ataque");
 		lblBonusBaseAtaque.setBounds(18, 277, 130, 16);
 		frame.getContentPane().add(lblBonusBaseAtaque);
@@ -159,36 +173,38 @@ public class App {
 		JButton btnEquipamentos = new JButton("Equipamentos");
 		btnEquipamentos.setBounds(319, 228, 117, 29);
 		frame.getContentPane().add(btnEquipamentos);
+		btnEquipamentos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table_1.setModel(equips);
+			}
+		});
 		
-		txtd = new TFObserver();
-		txtd.setText("1d6 + 15");
-		txtd.setColumns(10);
-		txtd.setBounds(26, 415, 193, 30);
-		frame.getContentPane().add(txtd);
 		
-		txtd_1 = new TFObserver();
-		txtd_1.setText("3d8 + 6");
-		txtd_1.setColumns(10);
-		txtd_1.setBounds(26, 445, 193, 30);
-		frame.getContentPane().add(txtd_1);
+		txtAtaque3 = new TFObserver();
+		txtAtaque3.setText("1d6 + 15");
+		txtAtaque3.setColumns(10);
+		txtAtaque3.setBounds(26, 415, 193, 30);
+		frame.getContentPane().add(txtAtaque3);
+		
+		txtAtaque4 = new TFObserver();
+		txtAtaque4.setText("3d8 + 6");
+		txtAtaque4.setColumns(10);
+		txtAtaque4.setBounds(26, 445, 193, 30);
+		frame.getContentPane().add(txtAtaque4);
 		
 		JLabel lblCa = new JLabel("CA");
 		lblCa.setBounds(340, 171, 27, 16);
 		frame.getContentPane().add(lblCa);
 		
-		
-		TableModelPericias model = new TableModelPericias();
-		pl.addObserver(model);
-		
 		// Table 1 Tabela dos equipamentos e tudo
-		table_1 = new JTable(model);
+		table_1 = new JTable(equips);
 		table_1.setBounds(329, 272, 432, 267);
 		frame.getContentPane().add(table_1);
 		JScrollPane js=new JScrollPane(table_1);
 		js.setSize(table_1.getSize());
 		js.setLocation(table_1.getLocation());
 		js.setVisible(true);
-		this.frame.add(js);
+		this.frame.getContentPane().add(js);
 		
 		
 		JLabel lblPv = new JLabel("PV");
@@ -365,6 +381,7 @@ public class App {
 		frame.getContentPane().add(tfNivelValue);
 		tfNivelValue.setColumns(10);
 		
+		
 		JLabel lblClasse = new JLabel("Raça");
 		lblClasse.setBounds(141, 33, 46, 16);
 		frame.getContentPane().add(lblClasse);
@@ -373,45 +390,62 @@ public class App {
 		label_6.setBounds(330, 33, 46, 16);
 		frame.getContentPane().add(label_6);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Bardo", "Barbaro", "Guerreiro", "Ranger", "Paladino", "Feiticeiro", "Mago", "Druida", "Clérigo"}));
-		comboBox.setBounds(380, 29, 146, 27);
-		frame.getContentPane().add(comboBox);
+		CBObserver CBClasse = new CBObserver();
+		CBClasse.setModel(new DefaultComboBoxModel<String>(new String[] {"Bardo", "Barbaro", "Guerreiro", "Ranger", "Paladino", "Feiticeiro", "Mago", "Druida", "Clérigo"}));
+		CBClasse.setBounds(380, 29, 146, 27);
+		frame.getContentPane().add(CBClasse);
+		CBClasse.addActionListener (new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				CBObserver cb = (CBObserver) e.getSource();
+				pl.updateData("classe", cb.getSelectedIndex());
+				//System.out.println("classe: " + pl.getData("classe"));
+			}
+		});
+		CBClasse.setSelectedIndex( (Integer) pl.getData("classe") ); 
 		
-		JComboBox<String> comboBox_1 = new JComboBox<String>();
-		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"Anão", "Humano", "Meio-Orc", "Elfo", "Meio-Elfo", "Halfling"}));
-		comboBox_1.setBounds(187, 29, 114, 27);
-		frame.getContentPane().add(comboBox_1);
+		CBObserver CBRaca = new CBObserver();
+		CBRaca.setModel(new DefaultComboBoxModel<String>(new String[] {"Anão", "Humano", "Meio-Orc", "Elfo", "Meio-Elfo", "Halfling"}));
+		CBRaca.setBounds(187, 29, 114, 27);
+		frame.getContentPane().add(CBRaca);
+		CBRaca.addActionListener (new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				CBObserver cb = (CBObserver) e.getSource();
+				pl.updateData("raca", cb.getSelectedIndex());
+				//System.out.println("raca: " + pl.getData("raca"));
+			}
+		});
+		CBRaca.setSelectedIndex( (Integer) pl.getData("raca") );
+		
 		
 		JLabel lblExp = new JLabel("EXP");
 		lblExp.setBounds(583, 6, 61, 16);
 		frame.getContentPane().add(lblExp);
 		
-		textField_5 = new TFObserver();
-		textField_5.setBounds(608, 1, 130, 26);
-		frame.getContentPane().add(textField_5);
-		textField_5.setColumns(10);
+		txtExp = new TFObserver();
+		txtExp.setBounds(608, 1, 130, 26);
+		frame.getContentPane().add(txtExp);
+		txtExp.setColumns(10);
 		
-		textField = new TFObserver();
-		textField.setText("2d6 + 1d8");
-		textField.setColumns(10);
-		textField.setBounds(26, 355, 193, 30);
-		frame.getContentPane().add(textField);
+		txtAtaque1 = new TFObserver();
+		txtAtaque1.setText("2d6 + 1d8");
+		txtAtaque1.setColumns(10);
+		txtAtaque1.setBounds(26, 355, 193, 30);
+		frame.getContentPane().add(txtAtaque1);
 		
-		textField_1 = new TFObserver();
-		textField_1.setBounds(360, 166, 46, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		txCa = new TFObserver();
+		txCa.setBounds(360, 166, 46, 26);
+		frame.getContentPane().add(txCa);
+		txCa.setColumns(10);
 		
-		textField_2 = new TFObserver();
-		textField_2.setColumns(10);
-		textField_2.setBounds(360, 127, 46, 26);
-		frame.getContentPane().add(textField_2);
+		txPvAtual = new TFObserver();
+		txPvAtual.setColumns(10);
+		txPvAtual.setBounds(360, 127, 46, 26);
+		frame.getContentPane().add(txPvAtual);
 		
-		textField_3 = new TFObserver();
-		textField_3.setColumns(10);
-		textField_3.setBounds(400, 127, 46, 26);
-		frame.getContentPane().add(textField_3);
+		txPvTotal = new TFObserver();
+		txPvTotal.setColumns(10);
+		txPvTotal.setBounds(400, 127, 46, 26);
+		frame.getContentPane().add(txPvTotal);
 		
 		JLabel lblTotal = new JLabel("total");
 		lblTotal.setBounds(405, 113, 37, 16);
@@ -430,20 +464,36 @@ public class App {
 	}
 	
 	private void listenAtributes(){
-		this.bindTxtField(txtvalue_for, "for");
-		this.bindTxtField(txtvalue_des, "des");
-		this.bindTxtField(txtvalue_con, "con");
-		this.bindTxtField(txtvalue_int, "int");
-		this.bindTxtField(txtvalue_sab, "sab");
-		this.bindTxtField(txtvalue_car, "car");
+		this.bindTxtField(txtvalue_for, "for", true);
+		this.bindTxtField(txtvalue_des, "des", true);
+		this.bindTxtField(txtvalue_con, "con", true);
+		this.bindTxtField(txtvalue_int, "int", true);
+		this.bindTxtField(txtvalue_sab, "sab", true);
+		this.bindTxtField(txtvalue_car, "car", true);
 		
-		this.bindTxtField(tf_value_fort, "fortitude");
-		this.bindTxtField(tf_value_reflex, "reflexos");
-		this.bindTxtField(tf_value_vont, "vontade");
+		this.bindTxtField(tf_value_fort, "fortitude", true);
+		this.bindTxtField(tf_value_reflex, "reflexos", true);
+		this.bindTxtField(tf_value_vont, "vontade", true);
+		
+		this.bindTxtField(tfNivelValue, "nivel", true);
+		this.bindTxtField(txtRobertLangdon, "nome", false);
+		this.bindTxtField(txtCaoticoNeutro, "tendencia", false);
+		this.bindTxtField(txtExp, "exp", false);
+		
+		this.bindTxtField(txtBonusBaseAtaque, "bonus_base_ataque", true);
+		this.bindTxtField(txtAtaque1, "ataque1", false);
+		this.bindTxtField(txtAtaque2, "ataque2", false);
+		this.bindTxtField(txtAtaque3, "ataque3", false);
+		this.bindTxtField(txtAtaque4, "ataque4", false);
+		
+		this.bindTxtField(txPvAtual, "pv_atual", false);
+		this.bindTxtField(txPvTotal, "pv_total", false);
+		this.bindTxtField(txCa, "ca", true);
+		
 	}
 	
 	//Util 
-	private void bindTxtField(final TFObserver tf, final String key){
+	private void bindTxtField(final TFObserver tf, final String key, final boolean isInt){
 		tf.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) { warn(); }
 			public void removeUpdate(DocumentEvent e)  { warn(); }
@@ -452,11 +502,17 @@ public class App {
 			public void warn() {
 
 				if (tf.getText().isEmpty()) return;
+				
+				System.out.println(tf.obs_key + " changed: " + tf.getText());
+				
+				if (isInt){
+					int val = Integer.parseInt(tf.getText());
 
-				int val = Integer.parseInt(tf.getText());
-
-				if ( val >= 0){
-					pl.updateData(key, val);
+					if ( val >= 0){
+						pl.updateData(key, val);
+					}
+				}else{
+					pl.updateData(key, tf.getText());
 				}
 			}
 		});

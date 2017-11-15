@@ -12,7 +12,9 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 	
 	private String[] col = {"Nome", "Valor", "Mod", "Grad"};
 	
-	public TableModelPericias(){}
+	public TableModelPericias(){
+		Player.shared.addObserver(this);
+	}
 	
 	@Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -33,6 +35,11 @@ public class TableModelPericias extends AbstractTableModel implements Observer{
 	public int getColumnCount() {
 		return col.length;
 	}
+	
+	@Override
+	public String getColumnName(int column) {
+        return col[column];
+    }
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {

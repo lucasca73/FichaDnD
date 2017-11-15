@@ -29,6 +29,15 @@ public class TFObserver extends JTextField implements player.observer.Observer {
 				PlayerAtribute atr = (PlayerAtribute) d;
 				this.setText(String.valueOf( atr.getValue() ));
 			}
+			
+			if (d instanceof String){
+				this.setText((String)d);
+			}
+			
+			if (d instanceof Integer){
+				this.setText(String.valueOf( d ));
+			}
+			
 		}
 	}
 }
