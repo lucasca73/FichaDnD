@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Point;
 
 public class App {
 	
@@ -202,7 +203,7 @@ public class App {
 		frame.getContentPane().add(table_1);
 		JScrollPane js=new JScrollPane(table_1);
 		js.setSize(table_1.getSize());
-		js.setLocation(table_1.getLocation());
+		js.setLocation(new Point(325, 272));
 		js.setVisible(true);
 		this.frame.getContentPane().add(js);
 		
@@ -391,7 +392,7 @@ public class App {
 		frame.getContentPane().add(label_6);
 		
 		CBObserver CBClasse = new CBObserver();
-		CBClasse.setModel(new DefaultComboBoxModel<String>(new String[] {"Bardo", "Barbaro", "Guerreiro", "Ranger", "Paladino", "Feiticeiro", "Mago", "Druida", "Clérigo"}));
+		CBClasse.setModel(new DefaultComboBoxModel(new String[] {"Bardo", "Barbaro", "Clérigo", "Druida", "Feiticeiro", "Guerreiro", "Ladino", "Mago", "Monge", "Paladino", "Ranger", "Sem-Classe"}));
 		CBClasse.setBounds(380, 29, 146, 27);
 		frame.getContentPane().add(CBClasse);
 		CBClasse.addActionListener (new ActionListener () {
@@ -404,7 +405,7 @@ public class App {
 		CBClasse.setSelectedIndex( (Integer) pl.getData("classe") ); 
 		
 		CBObserver CBRaca = new CBObserver();
-		CBRaca.setModel(new DefaultComboBoxModel<String>(new String[] {"Anão", "Humano", "Meio-Orc", "Elfo", "Meio-Elfo", "Halfling"}));
+		CBRaca.setModel(new DefaultComboBoxModel(new String[] {"Anão", "Elfo", "Gnomo", "Halfling", "Humano", "Meio-Orc", "Meio-Elfo"}));
 		CBRaca.setBounds(187, 29, 114, 27);
 		frame.getContentPane().add(CBRaca);
 		CBRaca.addActionListener (new ActionListener () {
@@ -439,16 +440,16 @@ public class App {
 		
 		txPvAtual = new TFObserver();
 		txPvAtual.setColumns(10);
-		txPvAtual.setBounds(360, 127, 46, 26);
+		txPvAtual.setBounds(360, 127, 45, 26);
 		frame.getContentPane().add(txPvAtual);
 		
 		txPvTotal = new TFObserver();
 		txPvTotal.setColumns(10);
-		txPvTotal.setBounds(400, 127, 46, 26);
+		txPvTotal.setBounds(405, 127, 45, 26);
 		frame.getContentPane().add(txPvTotal);
 		
 		JLabel lblTotal = new JLabel("total");
-		lblTotal.setBounds(405, 113, 37, 16);
+		lblTotal.setBounds(410, 113, 37, 16);
 		frame.getContentPane().add(lblTotal);
 		
 		JLabel lblAtual = new JLabel("atual");

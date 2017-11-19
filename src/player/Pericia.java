@@ -96,4 +96,10 @@ public class Pericia {
 		return ps;
 	}
 	
+	private static void readfromscanner(Scanner in, ArrayList<Pericia> ps){
+		
+		
+		
+	}
+	
 }

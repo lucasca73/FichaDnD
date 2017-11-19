@@ -3,9 +3,11 @@ package player;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import player.observer.*;
+
+// json Reader
+import player.jsonReader.*;
 
 public class Player {
 	
@@ -39,7 +41,7 @@ public class Player {
 		data.put("ataque3", "");
 		data.put("ataque4", "");
 		data.put("ca", 0);
-		data.put("pv_atual", 3);
+		data.put("pv_atual", 0);
 		data.put("pv_total", 0);
 		
 		data.put("equipamentos", new ArrayList<String>() );
@@ -62,6 +64,9 @@ public class Player {
 		}
 		
 		System.out.println("nome: " + data.get("nome"));
+		
+		// running class reader
+		JSONClasses.readClass("Barbaro");
 	}
 	
 	
@@ -86,14 +91,14 @@ public class Player {
 			} else if (obj instanceof String ){ //Updating others
 				data.put(name, value);
 				
-				Object updated = data.get(name);
-				if (updated instanceof String && value instanceof String){
-					String str = (String) updated;
-					String otherStr = (String) value;
-					if (str == otherStr){
-						System.out.println( obj.getClass().getSimpleName() + " " + name + "updated");
-					}
-				}
+//				Object updated = data.get(name);
+//				if (updated instanceof String && value instanceof String){
+//					String str = (String) updated;
+//					String otherStr = (String) value;
+//					if (str == otherStr){
+//						System.out.println( obj.getClass().getSimpleName() + " " + name + "updated");
+//					}
+//				}
 				
 			} else {
 				System.out.println(obj.getClass());
@@ -140,6 +145,9 @@ public class Player {
 		oos.writeObject(data);
 		
 		//System.out.println(data);
+		
+		fout.close();
+		oos.close();
 	}
 	
 	private void readState() throws Exception {
@@ -151,6 +159,9 @@ public class Player {
 		
 		//System.out.println(readData);
 		//System.out.println(data);
+		
+		streamIn.close();
+		objectinputstream.close();
 	}
 	
 	
